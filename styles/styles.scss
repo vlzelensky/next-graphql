@@ -1,0 +1,247 @@
+@font-face {
+  font-family: Rubik;
+  src: url(../public/fonts/Rubik.ttf);
+}
+
+body {
+  background: linear-gradient(45deg, #58d5e3, #9d06e8);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+}
+
+.nav-bar {
+  align-items: center;
+  font-family: "Rubik";
+  background: #fff;
+  display: flex;
+  position: fixed;
+  height: 60px;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 0 10vw;
+  justify-content: space-between;
+  button {
+    border-radius: 5px;
+    width: 200px;
+    background: #58d5e3;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    height: 35px;
+    border: none;
+    text-transform: uppercase;
+    font-family: "Rubik";
+  }
+  .bread-crumbs {
+    align-items: center;
+    display: flex;
+    p {
+      margin: 0 10px 0 10px;
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  span {
+    margin-right: 40px;
+    margin-left: 30px;
+  }
+}
+
+main {
+  font-family: "Rubik";
+  margin-top: 100px;
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  .main-box {
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h1,
+    h2 {
+      margin: 20px auto;
+    }
+  }
+}
+
+.login-box {
+  font-family: "Rubik";
+  width: 400px;
+  background-color: #fff;
+  margin: 150px auto;
+  padding: 40px 0;
+  h1 {
+    margin: 0 auto 20px;
+  }
+  p {
+    margin: 10px 0 3px;
+  }
+  span {
+    margin-top: 3px;
+    a {
+      text-decoration: none;
+      color: rgb(102, 173, 255);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  button {
+    background: linear-gradient(45deg, #58d5e3, #9d06e8);
+    font-size: 17px;
+    color: #fff;
+    margin-top: 20px;
+    height: 35px;
+    border: none;
+    text-transform: uppercase;
+    font-family: "Rubik";
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+  }
+  input {
+    height: 35px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgrey;
+    padding: 0 10px;
+    &:focus {
+      outline: none;
+    }
+  }
+  h2 {
+    font-weight: 400;
+    font-size: 16px;
+    margin: 45px auto 0;
+    a {
+      text-decoration: none;
+      color: rgb(102, 173, 255);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .login-content {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+.modal-box {
+  box-shadow: 0 2px 10px 0 #111015;
+  font-family: "Rubik";
+  width: 300px;
+  background-color: #fff;
+  margin: 150px auto;
+  padding: 20px 40px 40px;
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  input {
+    margin-bottom: 20px;
+    height: 35px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgrey;
+    padding: 0 10px;
+    &:focus {
+      outline: none;
+    }
+  }
+  h1 {
+    margin: 0 0 20px;
+  }
+  .modal-buttons {
+    width: 40%;
+  }
+}
+.gradient-btn {
+  width: 100%;
+  background: linear-gradient(45deg, #58d5e3, #9d06e8);
+  font-size: 17px;
+  color: #fff;
+  height: 35px;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Rubik";
+  background: linear-gradient(45deg, #58d5e3, #9d06e8);
+  font-size: 17px;
+  color: #fff;
+  margin: 20px auto 0;
+  height: 35px;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Rubik";
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+
+.MuiInputBase-root:before {
+  display: none !important;
+}
+.MuiInputBase-root:after {
+  display: none !important;
+}
+
+.MuiInputBase-root {
+  &:before {
+    display: none !important;
+  }
+  &::after {
+    display: none !important;
+  }
+}
+
+.quantity-btn {
+  background: none;
+  border: none;
+  height: 13px !important;
+  cursor: pointer;
+}
+
+.MuiPaper-root {
+  font-family: "Rubik";
+
+  h1 {
+    margin: 0 0 20px;
+  }
+  input {
+    margin-bottom: 20px;
+    height: 35px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightgrey;
+    padding: 0 10px;
+    &:focus {
+      outline: none;
+    }
+  }
+  .modal-buttons {
+    display: flex;
+    width: 100%;
+  }
+}
+.MuiPaper {
+  border-radius: none !important;
+}

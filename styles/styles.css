@@ -1,0 +1,316 @@
+@font-face {
+  font-family: Rubik;
+  src: url(../public/fonts/Rubik.ttf);
+}
+
+body {
+  background: linear-gradient(45deg, #58d5e3, #9d06e8);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+}
+
+.nav-bar {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "Rubik";
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  height: 60px;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 0 10vw;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.nav-bar button {
+  border-radius: 5px;
+  width: 200px;
+  background: #58d5e3;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  height: 35px;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Rubik";
+}
+
+.nav-bar .bread-crumbs {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-bar .bread-crumbs p {
+  margin: 0 10px 0 10px;
+}
+
+.nav-bar .bread-crumbs p a {
+  text-decoration: none;
+}
+
+.navbar-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.navbar-left span {
+  margin-right: 40px;
+  margin-left: 30px;
+}
+
+main {
+  font-family: "Rubik";
+  margin-top: 100px;
+}
+
+main .container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+main .main-box {
+  background-color: #fff;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .main-box h1,
+main .main-box h2 {
+  margin: 20px auto;
+}
+
+.login-box {
+  font-family: "Rubik";
+  width: 400px;
+  background-color: #fff;
+  margin: 150px auto;
+  padding: 40px 0;
+}
+
+.login-box h1 {
+  margin: 0 auto 20px;
+}
+
+.login-box p {
+  margin: 10px 0 3px;
+}
+
+.login-box span {
+  margin-top: 3px;
+}
+
+.login-box span a {
+  text-decoration: none;
+  color: #66adff;
+}
+
+.login-box span a:hover {
+  text-decoration: underline;
+}
+
+.login-box button {
+  background: linear-gradient(45deg, #58d5e3, #9d06e8);
+  font-size: 17px;
+  color: #fff;
+  margin-top: 20px;
+  height: 35px;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Rubik";
+  cursor: pointer;
+}
+
+.login-box button:focus {
+  outline: none;
+}
+
+.login-box input {
+  height: 35px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: lightgrey;
+  padding: 0 10px;
+}
+
+.login-box input:focus {
+  outline: none;
+}
+
+.login-box h2 {
+  font-weight: 400;
+  font-size: 16px;
+  margin: 45px auto 0;
+}
+
+.login-box h2 a {
+  text-decoration: none;
+  color: #66adff;
+}
+
+.login-box h2 a:hover {
+  text-decoration: underline;
+}
+
+.login-box .login-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.modal-box {
+  -webkit-box-shadow: 0 2px 10px 0 #111015;
+          box-shadow: 0 2px 10px 0 #111015;
+  font-family: "Rubik";
+  width: 300px;
+  background-color: #fff;
+  margin: 150px auto;
+  padding: 20px 40px 40px;
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.modal-box input {
+  margin-bottom: 20px;
+  height: 35px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: lightgrey;
+  padding: 0 10px;
+}
+
+.modal-box input:focus {
+  outline: none;
+}
+
+.modal-box h1 {
+  margin: 0 0 20px;
+}
+
+.modal-box .modal-buttons {
+  width: 40%;
+}
+
+.gradient-btn {
+  width: 100%;
+  background: linear-gradient(45deg, #58d5e3, #9d06e8);
+  font-size: 17px;
+  color: #fff;
+  height: 35px;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Rubik";
+  background: linear-gradient(45deg, #58d5e3, #9d06e8);
+  font-size: 17px;
+  color: #fff;
+  margin: 20px auto 0;
+  height: 35px;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Rubik";
+  cursor: pointer;
+}
+
+.gradient-btn:focus {
+  outline: none;
+}
+
+.MuiInputBase-root:before {
+  display: none !important;
+}
+
+.MuiInputBase-root:after {
+  display: none !important;
+}
+
+.MuiInputBase-root:before {
+  display: none !important;
+}
+
+.MuiInputBase-root::after {
+  display: none !important;
+}
+
+.quantity-btn {
+  background: none;
+  border: none;
+  height: 13px !important;
+  cursor: pointer;
+}
+
+.MuiPaper-root {
+  font-family: "Rubik";
+}
+
+.MuiPaper-root h1 {
+  margin: 0 0 20px;
+}
+
+.MuiPaper-root input {
+  margin-bottom: 20px;
+  height: 35px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: lightgrey;
+  padding: 0 10px;
+}
+
+.MuiPaper-root input:focus {
+  outline: none;
+}
+
+.MuiPaper-root .modal-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.MuiPaper {
+  border-radius: none !important;
+}
+/*# sourceMappingURL=styles.css.map */
