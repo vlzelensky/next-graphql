@@ -1,5 +1,7 @@
 import NavBar from "../../components/NavBar/navbar.js";
+import { useSelector } from "react-redux";
 import Quantity from "../../components/Quantity";
+import { useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -38,7 +40,17 @@ const products = [
   },
 ];
 
-export default function Post() {
+const Post = () => {
+  const { quantity } = useSelector((globalState) => globalState.purchases);
+
+  const chooseColor = (quantity) => {
+    if (quantity === 0) {
+      return "lightgrey";
+    } else {
+      return "#fff";
+    }
+  };
+
   return (
     <NavBar>
       <div className="container">
@@ -64,7 +76,10 @@ export default function Post() {
               </TableHead>
               <TableBody>
                 {products.map((el, i) => (
-                  <TableRow key={i}>
+                  <TableRow
+                    style={{ background: chooseColor(quantity) }}
+                    key={i}
+                  >
                     <TableCell>{el.description}</TableCell>
                     <TableCell align="right">{el.weight}</TableCell>
                     <TableCell align="right">{el.price}</TableCell>
@@ -83,4 +98,6 @@ export default function Post() {
       </div>
     </NavBar>
   );
-}
+};
+
+export default Post;

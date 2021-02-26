@@ -1,18 +1,22 @@
 import { CREATE_PURCHASE } from "./types";
-import { DELETE_PURCHASE } from "./types";
+import { INCREMENT_QUANTITY } from "./types";
+import { DECREMENT_QUANTITY } from "./types";
 
-function createPurchase(purchase) {
+export const createPurchase = (purchase) => {
   return {
     type: CREATE_PURCHASE,
     payload: purchase,
   };
-}
+};
 
-// function addProducts(products) {
-//   return {
-//     type: ADD_PRODUCTS,
-//     payload: products,
-//   };
-// }
+export const incrementQuantity = () => {
+  return {
+    type: INCREMENT_QUANTITY,
+  };
+};
 
-export default createPurchase;
+export const decrementQuantity = () => {
+  return {
+    type: DECREMENT_QUANTITY,
+  };
+};

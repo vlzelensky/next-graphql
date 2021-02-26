@@ -31,7 +31,9 @@ const Purchase = ({ purchases }) => {
             {purchases.map((el, i) => (
               <TableRow key={i}>
                 <TableCell>{el.title}</TableCell>
-                <TableCell align="right">{el.date}</TableCell>
+                <TableCell align="right">
+                  {el.date.toLocaleDateString("ru-RU")}
+                </TableCell>
                 <TableCell align="right">
                   <button
                     style={{

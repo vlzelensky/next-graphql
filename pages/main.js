@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { connect } from "react-redux";
-import createPurchase from "../redux/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { createPurchase } from "../redux/actions";
 import Router from "next/router";
 import NavBar from "../components/NavBar/navbar.js";
 import Purchase from "../components/Purchase/index.js";
@@ -12,10 +12,14 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-const Main = ({ purchases, createPurchase }) => {
+const Main = () => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState(Date.now());
+
+  const { purchases } = useSelector((globalState) => globalState.purchases);
+
+  const dispatch = useDispatch();
 
   const closeModal = () => {
     setOpen(false);
@@ -28,15 +32,18 @@ const Main = ({ purchases, createPurchase }) => {
     setTitle("");
   };
 
+  const selectDate = (date) => {
+    setDate(date);
+  };
+
   const addNewPurchase = (purchase) => {
     if (!title || !date) {
       return;
     }
-    // Router.push("/purchase/" + purchase.id);
-    createPurchase(purchase);
+    Router.push("/purchase/" + purchase.id);
+    dispatch(createPurchase(purchase));
     clearModalInputs();
     closeModal();
-    console.log(purchases);
   };
 
   return (
@@ -53,10 +60,11 @@ const Main = ({ purchases, createPurchase }) => {
             <span>Date</span>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
+                autoOk="true"
+                margin="normal"
                 format="dd/MM/yyyy"
-                // KeyboardButtonProps={{
-                //   "aria-label": "change date",
-                // }}
+                value={date}
+                onChange={selectDate}
               />
             </MuiPickersUtilsProvider>
             <div style={{ width: "40%" }} className="modal-buttons">
@@ -69,7 +77,7 @@ const Main = ({ purchases, createPurchase }) => {
                   addNewPurchase({
                     id: purchases.length + 1,
                     title: title,
-                    date: date,
+                    date: new Date(date),
                   });
                 }}
               >
@@ -88,13 +96,4 @@ const Main = ({ purchases, createPurchase }) => {
   );
 };
 
-const mapDispatchToProps = {
-  createPurchase,
-};
-const mapStateToProps = (state) => {
-  return {
-    purchases: state.purchases.purchases,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;
