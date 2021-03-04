@@ -1,5 +1,7 @@
+import Router from "next/router";
 import NavBar from "../../components/NavBar/navbar.js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addProducts, createPurchase } from "../../redux/actions";
 import Quantity from "../../components/Quantity";
 import { useEffect } from "react";
 import {
@@ -11,37 +13,8 @@ import {
   TableRow,
 } from "@material-ui/core";
 
-const products = [
-  {
-    description: "Драже M&Ms с молочным шоколадом",
-    weight: "45 г",
-    price: "49,49 ₽",
-  },
-  {
-    description: "Шоколад Ritter Sport темный с начинкой Марципан",
-    weight: "100 г",
-    price: "136,89 ₽",
-  },
-  {
-    description: "Шоколадные конфеты Merci Ассорти",
-    weight: "250 г",
-    price: "409,99 ₽",
-  },
-  {
-    description: "Пряники Яшкино шоколадные",
-    weight: "350 г",
-    price: "86,39 ₽",
-  },
-  {
-    description:
-      "Шоколад Bucheron с горькой клюквой, миндалем и фисташками 72%",
-    weight: "100 г",
-    price: "208,49 ₽",
-  },
-];
-
 const Post = () => {
-  const { quantity } = useSelector((globalState) => globalState.purchases);
+  const { products } = useSelector((globalState) => globalState.purchases);
 
   const chooseColor = (quantity) => {
     if (quantity === 0) {
@@ -49,6 +22,12 @@ const Post = () => {
     } else {
       return "#fff";
     }
+  };
+  const dispatch = useDispatch();
+  const createNewPurchase = () => {
+    dispatch(addProducts());
+    dispatch(createPurchase());
+    Router.push("/main");
   };
 
   return (
@@ -77,21 +56,25 @@ const Post = () => {
               <TableBody>
                 {products.map((el, i) => (
                   <TableRow
-                    style={{ background: chooseColor(quantity) }}
+                    style={{ background: chooseColor(el.quantity) }}
                     key={i}
                   >
                     <TableCell>{el.description}</TableCell>
                     <TableCell align="right">{el.weight}</TableCell>
                     <TableCell align="right">{el.price}</TableCell>
                     <TableCell align="right">
-                      <Quantity />
+                      <Quantity quantity={el.quantity} id={el.id} />
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-          <button style={{ margin: "0" }} className="gradient-btn">
+          <button
+            onClick={createNewPurchase}
+            style={{ margin: "0" }}
+            className="gradient-btn"
+          >
             Add
           </button>
         </div>

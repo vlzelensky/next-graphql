@@ -11,6 +11,10 @@ body {
   margin: 0;
 }
 
+button:focus {
+  outline: none;
+}
+
 .nav-bar {
   align-items: center;
   font-family: "Rubik";

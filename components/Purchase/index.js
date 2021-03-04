@@ -1,4 +1,6 @@
-import { connect } from "react-redux";
+import Router from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import { removePurchase } from "../../redux/actions";
 import {
   Table,
   TableBody,
@@ -8,8 +10,19 @@ import {
   TableRow,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
-const Purchase = ({ purchases }) => {
+const Purchase = () => {
+  const dispatch = useDispatch();
+  const { purchases } = useSelector((globalState) => globalState.purchases);
+
+  const deletePurchase = (id) => {
+    dispatch(removePurchase(id));
+  };
+
+  const editPurchase = (id) => {
+    Router.push("/edit/" + id);
+  };
   return (
     <>
       <TableContainer>
@@ -36,14 +49,23 @@ const Purchase = ({ purchases }) => {
                 </TableCell>
                 <TableCell align="right">
                   <button
+                    onClick={() => editPurchase(el.id)}
                     style={{
                       color: "grey",
                       background: "none",
                       border: "none",
                       cursor: "pointer",
-                      focus: {
-                        outline: "none",
-                      },
+                    }}
+                  >
+                    <EditIcon />
+                  </button>
+                  <button
+                    onClick={() => deletePurchase(el.id)}
+                    style={{
+                      color: "grey",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
                     }}
                   >
                     <DeleteIcon />
@@ -58,10 +80,4 @@ const Purchase = ({ purchases }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    purchases: state.purchases.purchases,
-  };
-};
-
-export default connect(mapStateToProps)(Purchase);
+export default Purchase;

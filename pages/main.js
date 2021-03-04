@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createPurchase } from "../redux/actions";
+import { createCurrentPurchase } from "../redux/actions";
 import Router from "next/router";
 import NavBar from "../components/NavBar/navbar.js";
 import Purchase from "../components/Purchase/index.js";
@@ -41,7 +41,7 @@ const Main = () => {
       return;
     }
     Router.push("/purchase/" + purchase.id);
-    dispatch(createPurchase(purchase));
+    dispatch(createCurrentPurchase(purchase));
     clearModalInputs();
     closeModal();
   };

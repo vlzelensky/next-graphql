@@ -3,32 +3,25 @@ import { incrementQuantity, decrementQuantity } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-const Quantity = () => {
+const Quantity = ({ quantity, id }) => {
   const dispatch = useDispatch();
-  const { quantity } = useSelector((globalState) => globalState.purchases);
-  // const [quantity, setQuantity] = useState(0);
-
-  // const increaseQuantity = () => {
-  //   setQuantity((quantity) => quantity + 1);
-  // };
-  // const reduseQuantity = () => {
-  //   if (quantity <= 0) {
-  //     return;
-  //   }
-  //   setQuantity((quantity) => quantity - 1);
-  // };
-
   return (
     <div>
-      <RemoveIcon
-        className="quantity-btn"
-        onClick={() => dispatch(decrementQuantity())}
-      />
+      <button
+        style={{ background: "none", border: "none", padding: "0" }}
+        onClick={() => dispatch(decrementQuantity(id))}
+        disabled={!quantity}
+      >
+        <RemoveIcon className="quantity-btn" />
+      </button>
+
       <span>{quantity}</span>
-      <AddIcon
-        className="quantity-btn"
-        onClick={() => dispatch(incrementQuantity())}
-      />
+      <button
+        style={{ background: "none", border: "none", padding: "0" }}
+        onClick={() => dispatch(incrementQuantity(id))}
+      >
+        <AddIcon className="quantity-btn" />
+      </button>
     </div>
   );
 };
