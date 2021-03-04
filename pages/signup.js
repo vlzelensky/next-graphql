@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import { useSelector, useDispatch } from "react-redux";
 import { changeInputValue, clearNewUserInputs } from "../redux/actions";
 import Router from "next/router";
@@ -43,6 +44,9 @@ export default function registration() {
   const goToLogin = () => Router.push("/");
   return (
     <>
+      <Head>
+        <title>Shop-project | SignIn</title>
+      </Head>
       <Snackbar anchorOrigin={{ vertical, horizontal }} open={warning}>
         <Alert onClose={() => setWarning(false)} severity="error">
           {warningMessage}

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { changeInputValue } from "../redux/actions";
 import Link from "next/link";
+import Head from "next/head";
 import Router from "next/router";
 import Alert from "@material-ui/lab/Alert";
 import { Snackbar } from "@material-ui/core";
@@ -12,7 +13,7 @@ export default function LogIn() {
   const [warningMessage, setWarningMessage] = useState("");
   const dispatch = useDispatch();
   const { emailValue, passwordValue } = useSelector(
-    (globalState) => globalState.purchases
+    (globalState) => globalState.userData
   );
   const logIn = () => {
     if (emailValue === "" && passwordValue === "") {
@@ -33,6 +34,9 @@ export default function LogIn() {
   const onError = () => {};
   return (
     <>
+      <Head>
+        <title>Shop-project | Login</title>
+      </Head>
       <Snackbar anchorOrigin={{ vertical, horizontal }} open={warning}>
         <Alert onClose={() => setWarning(false)} severity="error">
           {warningMessage}
