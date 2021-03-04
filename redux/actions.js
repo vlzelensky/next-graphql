@@ -5,8 +5,7 @@ import {
   CREATE_CURRENT_PURCHASE,
   ADD_PRODUCTS,
   REMOVE_PURCHASE,
-  CHANGE_PASSWORD_VALUE,
-  CHANGE_EMAIL_VALUE,
+  CLEAR_NEW_USER_INPUTS,
 } from "./types";
 
 export const createPurchase = () => {
@@ -49,16 +48,16 @@ export const removePurchase = (id) => {
   };
 };
 
-export const changeEmailValue = (event) => {
-  return {
-    type: CHANGE_EMAIL_VALUE,
-    payload: event,
-  };
-};
 export const changeInputValue = (type, event, inputName) => {
   return {
     type,
     payload: event,
     inputName,
+  };
+};
+
+export const clearNewUserInputs = () => {
+  return {
+    type: CLEAR_NEW_USER_INPUTS,
   };
 };

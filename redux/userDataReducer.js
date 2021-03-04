@@ -2,6 +2,7 @@ import {
   CHANGE_EMAIL_VALUE,
   CHANGE_PASSWORD_VALUE,
   CHANGE_NEW_USER_INPUTS,
+  CLEAR_NEW_USER_INPUTS,
 } from "./types";
 
 const initialState = {
@@ -12,7 +13,6 @@ const initialState = {
     lastName: "",
     email: "",
     password: "",
-    repeatPassword: "",
   },
 };
 
@@ -26,6 +26,17 @@ export const userDataReducer = (state = initialState, action) => {
       return {
         ...state,
         newUser: { ...state.newUser, [action.inputName]: action.payload },
+      };
+    case CLEAR_NEW_USER_INPUTS:
+      return {
+        ...state,
+        newUser: {
+          ...state.newUser,
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+        },
       };
     default:
       return state;
