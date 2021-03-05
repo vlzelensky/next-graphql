@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import { useSelector, useDispatch } from "react-redux";
 import { createCurrentPurchase } from "../redux/actions";
 import Router from "next/router";
@@ -47,52 +48,69 @@ const Main = () => {
   };
 
   return (
-    <NavBar>
-      <div className="container">
-        <div className="main-box">
-          <Dialog className="modal" open={open} onClose={closeModal}>
-            <h1>Add new purchase</h1>
-            <span>Title</span>
-            <input
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
-            ></input>
-            <span>Date</span>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                autoOk="true"
-                margin="normal"
-                format="dd/MM/yyyy"
-                value={date}
-                onChange={selectDate}
-              />
-            </MuiPickersUtilsProvider>
-            <div style={{ width: "40%" }} className="modal-buttons">
-              <button className="gradient-btn" onClick={closeModal}>
-                close
-              </button>
-              <button
-                className="gradient-btn"
-                onClick={() => {
-                  addNewPurchase({
-                    id: purchases.length + 1,
-                    title: title,
-                    date: new Date(date),
-                  });
+    <>
+      <Head>
+        <title>Shop-project | Home page</title>
+      </Head>
+      <NavBar>
+        <div className="container">
+          <div className="main-box">
+            <Dialog className="modal" open={open} onClose={closeModal}>
+              <h1 style={{ textAlign: "center" }}>Add new purchase</h1>
+              <span>Title</span>
+              <input
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+              ></input>
+              <span>Date</span>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  autoOk="true"
+                  margin="normal"
+                  format="dd/MM/yyyy"
+                  value={date}
+                  onChange={selectDate}
+                />
+              </MuiPickersUtilsProvider>
+              <div
+                style={{
+                  display: "flex",
+                  margin: "0 auto",
+                  justifyContent: "space-between",
                 }}
+                className="modal-buttons"
               >
-                add
-              </button>
-            </div>
-          </Dialog>
-          <h2>Purchases</h2>
-          <button className="gradient-btn" onClick={openModal}>
-            Add purchase
-          </button>
-          {purchases.length > 0 && <Purchase />}
+                <button
+                  style={{ margin: "0", width: "45%" }}
+                  className="gradient-btn"
+                  onClick={closeModal}
+                >
+                  close
+                </button>
+                <button
+                  style={{ margin: "0", width: "45%" }}
+                  className="gradient-btn"
+                  onClick={() => {
+                    addNewPurchase({
+                      id: purchases.length + 1,
+                      title: title,
+                      date: new Date(date),
+                    });
+                  }}
+                >
+                  add
+                </button>
+              </div>
+            </Dialog>
+            <h2>Purchases</h2>
+            <button className="gradient-btn" onClick={openModal}>
+              Add purchase
+            </button>
+            {purchases.length > 0 && <Purchase />}
+          </div>
         </div>
-      </div>
-    </NavBar>
+      </NavBar>
+    </>
   );
 };
 

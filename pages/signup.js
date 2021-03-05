@@ -17,7 +17,7 @@ export default function registration() {
   const [warningMessage, setWarningMessage] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const { newUser } = useSelector((globalState) => globalState.userData);
-  const [addUser] = useMutation(CREATE_USER);
+  const [addUser, { error }] = useMutation(CREATE_USER);
   console.log(repeatPassword);
 
   const createUser = async () => {
@@ -31,17 +31,24 @@ export default function registration() {
       setWarning(true);
       return;
     }
-
-    await addUser({
-      variables: {
-        input: newUser,
-      },
-    });
+    try {
+      await addUser({
+        variables: {
+          input: newUser,
+        },
+      });
+    } catch (error) {
+      setWarningMessage(error.message);
+      setWarning(true);
+      return;
+    }
     goToLogin();
-    dispatch(clearNewUserInputs());
   };
   const dispatch = useDispatch();
-  const goToLogin = () => Router.push("/");
+  const goToLogin = () => {
+    Router.push("/");
+    dispatch(clearNewUserInputs());
+  };
   return (
     <>
       <Head>
