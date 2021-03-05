@@ -80,16 +80,11 @@ const Main = () => {
                 }}
                 className="modal-buttons"
               >
-                <button
-                  style={{ margin: "0", width: "45%" }}
-                  className="gradient-btn"
-                  onClick={closeModal}
-                >
+                <button className="gradient-btn modal-btn" onClick={closeModal}>
                   close
                 </button>
                 <button
-                  style={{ margin: "0", width: "45%" }}
-                  className="gradient-btn"
+                  className="gradient-btn modal-btn"
                   onClick={() => {
                     addNewPurchase({
                       id: purchases.length + 1,
