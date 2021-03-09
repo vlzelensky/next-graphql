@@ -17,7 +17,6 @@ export default function LogIn() {
   );
   const logIn = () => {
     if (emailValue === "" && passwordValue === "") {
-      console.log("----------1", 1);
       setWarningMessage("Please enter your email address and password");
       setWarning(true);
     } else {

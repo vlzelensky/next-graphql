@@ -241,10 +241,6 @@ main {
       outline: none;
     }
   }
-  .modal-buttons {
-    display: flex;
-    width: 100%;
-  }
 }
 .MuiPaper-rounded {
   border-radius: 0 !important;
@@ -258,4 +254,9 @@ main {
 .modal-btn {
   margin: "0";
   width: 45%;
+}
+.modal-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

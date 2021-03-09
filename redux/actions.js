@@ -4,8 +4,10 @@ import {
   DECREMENT_QUANTITY,
   CREATE_CURRENT_PURCHASE,
   ADD_PRODUCTS,
+  CHANGE_NEW_PRODUCT_INPUTS,
   REMOVE_PURCHASE,
   CLEAR_NEW_USER_INPUTS,
+  GET_PRODUCTS,
 } from "./types";
 
 export const createPurchase = () => {
@@ -59,5 +61,12 @@ export const changeInputValue = (type, event, inputName) => {
 export const clearNewUserInputs = () => {
   return {
     type: CLEAR_NEW_USER_INPUTS,
+  };
+};
+
+export const getProducts = (data) => {
+  return {
+    type: GET_PRODUCTS,
+    payload: data,
   };
 };
