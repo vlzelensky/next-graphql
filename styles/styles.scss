@@ -246,6 +246,16 @@ main {
     width: 100%;
   }
 }
-.MuiPaper {
-  border-radius: none !important;
+.MuiPaper-rounded {
+  border-radius: 0 !important;
+}
+
+.MuiDialog-paper {
+  padding: 25px;
+  width: 450px;
+}
+
+.modal-btn {
+  margin: "0";
+  width: 45%;
 }
