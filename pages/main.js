@@ -72,14 +72,7 @@ const Main = () => {
                   onChange={selectDate}
                 />
               </MuiPickersUtilsProvider>
-              <div
-                style={{
-                  display: "flex",
-                  margin: "0 auto",
-                  justifyContent: "space-between",
-                }}
-                className="modal-buttons"
-              >
+              <div className="modal-buttons">
                 <button className="gradient-btn modal-btn" onClick={closeModal}>
                   close
                 </button>

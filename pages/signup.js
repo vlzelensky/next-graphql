@@ -18,7 +18,6 @@ export default function registration() {
   const [repeatPassword, setRepeatPassword] = useState("");
   const { newUser } = useSelector((globalState) => globalState.userData);
   const [addUser, { error }] = useMutation(CREATE_USER);
-  console.log(repeatPassword);
 
   const createUser = async () => {
     if (!firstName || !lastName || !email || !password || !repeatPassword) {
