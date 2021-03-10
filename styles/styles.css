@@ -317,7 +317,7 @@ main .main-box h2 {
 }
 
 .modal-btn {
-  margin: "0";
+  margin: 0;
   width: 45%;
 }
 
@@ -329,5 +329,59 @@ main .main-box h2 {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.new-product-btn {
+  text-align: center !important;
+}
+
+.action-btn {
+  color: grey;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  color: black;
+}
+
+.default-btn {
+  border-radius: 5px;
+  width: 200px;
+  background: #58d5e3;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  height: 35px;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Rubik";
+  cursor: pointer;
+}
+
+.default-btn:hover {
+  background: #348088;
+}
+
+.add-purchase-btn {
+  margin: 0 auto 25px;
+}
+
+.cancel-btn {
+  background: #b061d8;
+}
+
+.cancel-btn:hover {
+  background: #6d2492;
+}
+
+.table-btn {
+  width: 30%;
+  margin: 0 25px 0 25px;
+}
+
+.date-picker {
+  padding: 0 !important;
 }
 /*# sourceMappingURL=styles.css.map */

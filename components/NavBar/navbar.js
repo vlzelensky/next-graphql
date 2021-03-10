@@ -28,7 +28,7 @@ export default function NavBar({ children }) {
             <Link color="inherit" href="/main">
               Home
             </Link>
-            <Link color="inherit" href="/user_page">
+            <Link color="inherit" href="/user-page">
               User Page
             </Link>
           </Breadcrumbs>

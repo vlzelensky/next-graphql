@@ -7,6 +7,7 @@ import {
   REMOVE_PURCHASE,
   CHANGE_NEW_PRODUCT_INPUTS,
   GET_PRODUCTS,
+  ADD_PURCHASES,
 } from "./types";
 
 const inititalState = {
@@ -22,6 +23,11 @@ const inititalState = {
 
 export const purchasesReducer = (state = inititalState, action) => {
   switch (action.type) {
+    case ADD_PURCHASES:
+      return {
+        ...state,
+        purchases: action.payload.getPurchases,
+      };
     case CREATE_PURCHASE:
       return {
         ...state,
