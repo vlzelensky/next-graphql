@@ -1,14 +1,19 @@
 import Router from "next/router";
 import NavBar from "../../components/NavBar/navbar.js";
+import Alert from "@material-ui/lab/Alert";
+import { Snackbar } from "@material-ui/core";
 import { changeInputValue } from "../../redux/actions";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_PRODUCT } from "../../mutations/product";
+import { CREATE_PRODUCT, DELETE_PRODUCT } from "../../mutations/product";
+import { CREATE_PURCHASE } from "../../mutations/purchase";
 import { GET_PRODUCTS } from "../../query/products";
-import { addProducts, createPurchase, getProducts } from "../../redux/actions";
+import { GET_PURCHASES } from "../../query/purchases";
+import { addProducts, getProducts } from "../../redux/actions";
 import Quantity from "../../components/Quantity";
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -17,15 +22,25 @@ import {
   TableRow,
   Dialog,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddIcon from "@material-ui/icons/Add";
 
 const Post = () => {
+  const [vertical] = useState("top");
+  const [horizontal] = useState("center");
+  const [warning, setWarning] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
   const [open, setOpen] = useState(false);
-  const { products } = useSelector((globalState) => globalState.purchases);
-  const { newProduct } = useSelector((globalState) => globalState.purchases);
+  const { products, newProduct, currentPurchase } = useSelector(
+    (globalState) => globalState.purchases
+  );
   const [isDisabled, setIsDisabled] = useState(
     Object.values(newProduct).every((value) => value)
   );
   const [addProduct, { error }] = useMutation(CREATE_PRODUCT);
+  const [createPurchase, { PurchaseError }] = useMutation(CREATE_PURCHASE);
+  const refetchPurchases = useQuery(GET_PURCHASES).refetch;
+  const [removeProduct] = useMutation(DELETE_PRODUCT);
   const { data, loading, getError, refetch } = useQuery(GET_PRODUCTS);
 
   useEffect(() => {
@@ -42,9 +57,20 @@ const Post = () => {
   };
   const dispatch = useDispatch();
 
-  const createNewPurchase = () => {
+  const createNewPurchase = async () => {
     dispatch(addProducts());
-    dispatch(createPurchase());
+    try {
+      await createPurchase({
+        variables: {
+          input: currentPurchase,
+        },
+      });
+      await refetchPurchases();
+    } catch (PurchaseError) {
+      setWarningMessage(PurchaseError.message);
+      setWarning(true);
+      return;
+    }
     Router.push("/main");
   };
 
@@ -57,20 +83,52 @@ const Post = () => {
   };
 
   const createProduct = async () => {
+    if (!newProduct.description || !newProduct.weight || !newProduct.price) {
+      setWarningMessage("All fields are required");
+      setWarning(true);
+      return;
+    } else {
+      setWarning(false);
+      try {
+        await addProduct({
+          variables: {
+            input: newProduct,
+          },
+        });
+        await refetch();
+      } catch (error) {
+        setWarningMessage(error.message);
+        setWarning(true);
+        return;
+      }
+      dispatch(
+        changeInputValue("CHANGE_NEW_PRODUCT_INPUTS", "", "description")
+      );
+      dispatch(changeInputValue("CHANGE_NEW_PRODUCT_INPUTS", "", "weight"));
+      dispatch(changeInputValue("CHANGE_NEW_PRODUCT_INPUTS", "", "price"));
+      handleClose();
+    }
+  };
+
+  const deleteProduct = async (id) => {
     try {
-      await addProduct({
+      await removeProduct({
         variables: {
-          input: newProduct,
+          input: { id },
         },
       });
       await refetch();
     } catch (error) {
       console.log(error);
     }
-    handleClose();
   };
   return (
     <NavBar>
+      <Snackbar anchorOrigin={{ vertical, horizontal }} open={warning}>
+        <Alert onClose={() => setWarning(false)} severity="error">
+          {warningMessage}
+        </Alert>
+      </Snackbar>
       <Dialog open={open} onClose={handleClose}>
         <h1 style={{ textAlign: "center" }}>Add new product</h1>
         <span>Description</span>
@@ -113,13 +171,16 @@ const Post = () => {
           value={newProduct.price}
         ></input>
         <div className="modal-buttons">
-          <button onClick={handleClose} className="gradient-btn modal-btn">
+          <button
+            onClick={handleClose}
+            className="default-btn modal-btn cancel-btn"
+          >
             Cancel
           </button>
           <button
             onClick={createProduct}
             disabled={isDisabled}
-            className="gradient-btn modal-btn"
+            className="default-btn modal-btn"
           >
             Add
           </button>
@@ -128,6 +189,7 @@ const Post = () => {
       <div className="container">
         <div className="main-box">
           <h1>Select products</h1>
+          <div></div>
           <TableContainer>
             <Table>
               <TableHead>
@@ -144,6 +206,9 @@ const Post = () => {
                   <TableCell align="right">
                     <h2>Quantity</h2>
                   </TableCell>
+                  <TableCell align="right">
+                    <h2>Actions</h2>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -158,18 +223,52 @@ const Post = () => {
                     <TableCell align="right">
                       <Quantity quantity={el.quantity} id={el.id} />
                     </TableCell>
+                    <TableCell align="right">
+                      <button
+                        className="action-btn"
+                        onClick={() => deleteProduct(el.id)}
+                      >
+                        <DeleteIcon />
+                      </button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
-          <button
-            onClick={handleOpen}
-            style={{ margin: "0" }}
-            className="gradient-btn"
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell className="new-product-btn">
+                    <Button onClick={handleOpen}>
+                      <AddIcon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
+          </TableContainer>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "25px 50px 25px",
+            }}
           >
-            Add
-          </button>
+            <button
+              onClick={() => Router.push("/main")}
+              className="default-btn table-btn cancel-btn"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => createNewPurchase()}
+              className="default-btn table-btn"
+            >
+              Add
+            </button>
+          </div>
         </div>
       </div>
     </NavBar>

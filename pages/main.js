@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useSelector, useDispatch } from "react-redux";
-import { createCurrentPurchase } from "../redux/actions";
+import { createCurrentPurchase, addPurchases } from "../redux/actions";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_PURCHASES } from "../query/purchases";
 import Router from "next/router";
 import NavBar from "../components/NavBar/navbar.js";
 import Purchase from "../components/Purchase/index.js";
-import { Dialog, DialogActions } from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -18,9 +20,17 @@ const Main = () => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState(Date.now());
 
+  const { data, loading, getError, refetch } = useQuery(GET_PURCHASES);
+
   const { purchases } = useSelector((globalState) => globalState.purchases);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!loading) {
+      dispatch(addPurchases(data));
+    }
+  }, [data]);
 
   const closeModal = () => {
     setOpen(false);
@@ -65,6 +75,7 @@ const Main = () => {
               <span>Date</span>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
+                  className="date-picker"
                   autoOk="true"
                   margin="normal"
                   format="dd/MM/yyyy"
@@ -73,28 +84,34 @@ const Main = () => {
                 />
               </MuiPickersUtilsProvider>
               <div className="modal-buttons">
-                <button className="gradient-btn modal-btn" onClick={closeModal}>
+                <button
+                  className="default-btn modal-btn cancel-btn"
+                  onClick={closeModal}
+                >
                   close
                 </button>
                 <button
-                  className="gradient-btn modal-btn"
+                  className="default-btn modal-btn"
                   onClick={() => {
                     addNewPurchase({
                       id: purchases.length + 1,
                       title: title,
-                      date: new Date(date),
+                      date: new Date(date).toLocaleDateString("ru-RU"),
                     });
                   }}
                 >
-                  add
+                  Add
                 </button>
               </div>
             </Dialog>
             <h2>Purchases</h2>
-            <button className="gradient-btn" onClick={openModal}>
+            <button
+              className="default-btn add-purchase-btn"
+              onClick={openModal}
+            >
               Add purchase
             </button>
-            {purchases.length > 0 && <Purchase />}
+            {purchases.length > 0 && <Purchase refetch={refetch} />}
           </div>
         </div>
       </NavBar>

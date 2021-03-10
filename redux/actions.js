@@ -8,11 +8,19 @@ import {
   REMOVE_PURCHASE,
   CLEAR_NEW_USER_INPUTS,
   GET_PRODUCTS,
+  ADD_PURCHASES,
 } from "./types";
 
 export const createPurchase = () => {
   return {
     type: CREATE_PURCHASE,
+  };
+};
+
+export const addPurchases = (data) => {
+  return {
+    type: ADD_PURCHASES,
+    payload: data,
   };
 };
 

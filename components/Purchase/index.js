@@ -1,6 +1,7 @@
 import Router from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { removePurchase } from "../../redux/actions";
+import { DELETE_PURCHASE } from "../../mutations/purchase";
+import { useMutation } from "@apollo/client";
 import {
   Table,
   TableBody,
@@ -12,12 +13,22 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
-const Purchase = () => {
+const Purchase = ({ refetch }) => {
   const dispatch = useDispatch();
+  const [removePurchase] = useMutation(DELETE_PURCHASE);
   const { purchases } = useSelector((globalState) => globalState.purchases);
 
-  const deletePurchase = (id) => {
-    dispatch(removePurchase(id));
+  const deletePurchase = async (id) => {
+    try {
+      await removePurchase({
+        variables: {
+          input: { id },
+        },
+      });
+      await refetch();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const editPurchase = (id) => {
@@ -44,29 +55,17 @@ const Purchase = () => {
             {purchases.map((el, i) => (
               <TableRow key={i}>
                 <TableCell>{el.title}</TableCell>
-                <TableCell align="right">
-                  {el.date.toLocaleDateString("ru-RU")}
-                </TableCell>
+                <TableCell align="right">{el.date}</TableCell>
                 <TableCell align="right">
                   <button
+                    className="action-btn"
                     onClick={() => editPurchase(el.id)}
-                    style={{
-                      color: "grey",
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
                   >
                     <EditIcon />
                   </button>
                   <button
+                    className="action-btn"
                     onClick={() => deletePurchase(el.id)}
-                    style={{
-                      color: "grey",
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
                   >
                     <DeleteIcon />
                   </button>
