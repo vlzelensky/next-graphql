@@ -1,11 +1,16 @@
 import Router from "next/router";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 import { Breadcrumbs, Typography } from "@material-ui/core";
 
 export default function NavBar({ children }) {
   const logOut = () => {
     Router.push("/");
   };
+
+  const userName = useSelector(
+    (globalState) => globalState.userData.user.email
+  );
 
   return (
     <>
@@ -33,8 +38,10 @@ export default function NavBar({ children }) {
             </Link>
           </Breadcrumbs>
         </div>
-
-        <button onClick={logOut}>Log Out</button>
+        <span>{userName}</span>
+        <button className="default-btn" onClick={logOut}>
+          Log Out
+        </button>
       </nav>
       <main>{children}</main>
     </>

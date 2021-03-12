@@ -35,19 +35,6 @@ button:focus {
           justify-content: space-between;
 }
 
-.nav-bar button {
-  border-radius: 5px;
-  width: 200px;
-  background: #58d5e3;
-  font-size: 17px;
-  font-weight: 700;
-  color: #fff;
-  height: 35px;
-  border: none;
-  text-transform: uppercase;
-  font-family: "Rubik";
-}
-
 .nav-bar .bread-crumbs {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -141,22 +128,6 @@ main .main-box h2 {
   text-decoration: underline;
 }
 
-.login-box button {
-  background: linear-gradient(45deg, #58d5e3, #9d06e8);
-  font-size: 17px;
-  color: #fff;
-  margin-top: 20px;
-  height: 35px;
-  border: none;
-  text-transform: uppercase;
-  font-family: "Rubik";
-  cursor: pointer;
-}
-
-.login-box button:focus {
-  outline: none;
-}
-
 .login-box input {
   height: 35px;
   border-width: 1px;
@@ -169,10 +140,15 @@ main .main-box h2 {
   outline: none;
 }
 
+.login-box button {
+  margin: 25px auto 0;
+  width: 100%;
+}
+
 .login-box h2 {
   font-weight: 400;
   font-size: 16px;
-  margin: 45px auto 0;
+  margin: 10px auto 0;
 }
 
 .login-box h2 a {

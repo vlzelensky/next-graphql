@@ -1,7 +1,6 @@
 import Router from "next/router";
-import { useSelector, useDispatch } from "react-redux";
-import { DELETE_PURCHASE } from "../../mutations/purchase";
-import { useMutation } from "@apollo/client";
+import PurchaseRow from "../Purchase/purchaserow";
+import { useSelector } from "react-redux";
 import {
   Table,
   TableBody,
@@ -10,26 +9,9 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 
 const Purchase = ({ refetch }) => {
-  const dispatch = useDispatch();
-  const [removePurchase] = useMutation(DELETE_PURCHASE);
   const { purchases } = useSelector((globalState) => globalState.purchases);
-
-  const deletePurchase = async (id) => {
-    try {
-      await removePurchase({
-        variables: {
-          input: { id },
-        },
-      });
-      await refetch();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const editPurchase = (id) => {
     Router.push("/edit/" + id);
@@ -53,24 +35,7 @@ const Purchase = ({ refetch }) => {
           </TableHead>
           <TableBody>
             {purchases.map((el, i) => (
-              <TableRow key={i}>
-                <TableCell>{el.title}</TableCell>
-                <TableCell align="right">{el.date}</TableCell>
-                <TableCell align="right">
-                  <button
-                    className="action-btn"
-                    onClick={() => editPurchase(el.id)}
-                  >
-                    <EditIcon />
-                  </button>
-                  <button
-                    className="action-btn"
-                    onClick={() => deletePurchase(el.id)}
-                  >
-                    <DeleteIcon />
-                  </button>
-                </TableCell>
-              </TableRow>
+              <PurchaseRow el={el} i={i} refetch={refetch}></PurchaseRow>
             ))}
           </TableBody>
         </Table>

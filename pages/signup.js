@@ -120,8 +120,12 @@ export default function registration() {
             value={repeatPassword}
             onChange={(event) => setRepeatPassword(event.target.value)}
           ></input>
-          <button onClick={goToLogin}>back</button>
-          <button onClick={createUser}>register</button>
+          <button className="default-btn cancel-btn" onClick={goToLogin}>
+            back
+          </button>
+          <button className="default-btn" onClick={createUser}>
+            register
+          </button>
         </div>
       </div>
     </>

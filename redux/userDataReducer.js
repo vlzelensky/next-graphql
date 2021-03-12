@@ -3,6 +3,7 @@ import {
   CHANGE_PASSWORD_VALUE,
   CHANGE_NEW_USER_INPUTS,
   CLEAR_NEW_USER_INPUTS,
+  SET_USER,
 } from "./types";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
     email: "",
     password: "",
   },
+  user: {},
 };
 
 export const userDataReducer = (state = initialState, action) => {
@@ -38,6 +40,8 @@ export const userDataReducer = (state = initialState, action) => {
           password: "",
         },
       };
+    case SET_USER:
+      return { ...state, user: action.payload };
     default:
       return state;
   }

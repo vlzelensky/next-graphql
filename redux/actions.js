@@ -9,6 +9,7 @@ import {
   CLEAR_NEW_USER_INPUTS,
   GET_PRODUCTS,
   ADD_PURCHASES,
+  SET_USER,
 } from "./types";
 
 export const createPurchase = () => {
@@ -76,5 +77,12 @@ export const getProducts = (data) => {
   return {
     type: GET_PRODUCTS,
     payload: data,
+  };
+};
+
+export const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
   };
 };

@@ -27,18 +27,6 @@ button:focus {
   left: 0;
   padding: 0 10vw;
   justify-content: space-between;
-  button {
-    border-radius: 5px;
-    width: 200px;
-    background: #58d5e3;
-    font-size: 17px;
-    font-weight: 700;
-    color: #fff;
-    height: 35px;
-    border: none;
-    text-transform: uppercase;
-    font-family: "Rubik";
-  }
   .bread-crumbs {
     align-items: center;
     display: flex;
@@ -103,20 +91,6 @@ main {
       }
     }
   }
-  button {
-    background: linear-gradient(45deg, #58d5e3, #9d06e8);
-    font-size: 17px;
-    color: #fff;
-    margin-top: 20px;
-    height: 35px;
-    border: none;
-    text-transform: uppercase;
-    font-family: "Rubik";
-    cursor: pointer;
-    &:focus {
-      outline: none;
-    }
-  }
   input {
     height: 35px;
     border-width: 1px;
@@ -127,10 +101,14 @@ main {
       outline: none;
     }
   }
+  button {
+    margin: 25px auto 0;
+    width: 100%;
+  }
   h2 {
     font-weight: 400;
     font-size: 16px;
-    margin: 45px auto 0;
+    margin: 10px auto 0;
     a {
       text-decoration: none;
       color: rgb(102, 173, 255);

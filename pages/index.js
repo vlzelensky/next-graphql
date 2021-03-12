@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import { changeInputValue } from "../redux/actions";
+import { useState, useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
+import { GET_TOKEN } from "../query/user";
+import { changeInputValue, setUser } from "../redux/actions";
 import Link from "next/link";
 import Head from "next/head";
 import Router from "next/router";
 import Alert from "@material-ui/lab/Alert";
 import { Snackbar } from "@material-ui/core";
-export default function LogIn() {
+const LogIn = () => {
   const [vertical] = useState("top");
   const [horizontal] = useState("center");
   const [warning, setWarning] = useState(false);
@@ -15,22 +17,41 @@ export default function LogIn() {
   const { emailValue, passwordValue } = useSelector(
     (globalState) => globalState.userData
   );
-  const logIn = () => {
-    if (emailValue === "" && passwordValue === "") {
+  const [getToken, { called, data, loading, error }] = useLazyQuery(GET_TOKEN);
+
+  useEffect(() => {
+    if (called && !loading) {
+      if (error) {
+        setWarningMessage(error.message);
+        setWarning(true);
+      } else {
+        Router.push("/main");
+      }
+    }
+  }, [data, called, loading]);
+
+  const logIn = async () => {
+    if (!emailValue && !passwordValue) {
       setWarningMessage("Please enter your email address and password");
       setWarning(true);
     } else {
-      if (emailValue === "") {
+      if (!emailValue) {
         setWarningMessage("Please enter your email address");
         setWarning(true);
       }
-      if (passwordValue === "") {
+      if (!passwordValue) {
         setWarningMessage("Please enter your password");
         setWarning(true);
+      } else {
+        getToken({
+          variables: {
+            email: emailValue,
+            password: passwordValue,
+          },
+        });
       }
     }
   };
-  const onError = () => {};
   return (
     <>
       <Head>
@@ -45,6 +66,7 @@ export default function LogIn() {
       <div className="login-box">
         <div className="login-content">
           <h1>Login Form</h1>
+          {loading && <span>loading...</span>}
           <p>Email</p>
           <input
             value={emailValue}
@@ -67,7 +89,9 @@ export default function LogIn() {
           <span>
             <Link href="/password-reset">Forgot Password?</Link>
           </span>
-          <button onClick={logIn}>login</button>
+          <button className="default-btn" onClick={logIn}>
+            login
+          </button>
           <h2>
             Not a member? <Link href="/signup">Signup now</Link>
           </h2>
@@ -75,4 +99,6 @@ export default function LogIn() {
       </div>
     </>
   );
-}
+};
+
+export default LogIn;

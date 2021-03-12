@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useSelector, useDispatch } from "react-redux";
 import { createCurrentPurchase, addPurchases } from "../redux/actions";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_PURCHASES } from "../query/purchases";
 import Router from "next/router";
 import NavBar from "../components/NavBar/navbar.js";
